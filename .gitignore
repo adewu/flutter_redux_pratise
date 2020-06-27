@@ -46,3 +46,9 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+.metadata
+
+flutter_redux_pratise.iml
+flutter_redux_pratise_android.iml
+pubspec.lock
