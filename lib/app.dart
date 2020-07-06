@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux_pratise/app_configuration.dart';
 import 'package:flutter_redux_pratise/global_store/state.dart';
 import 'package:flutter_redux_pratise/global_store/store.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 
 
@@ -99,6 +100,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(width: 1080,height: 1920,allowFontScaling: false);
     return OKToast(
       child: MaterialApp(
         title: '花生好车',
