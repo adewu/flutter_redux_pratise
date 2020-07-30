@@ -1,5 +1,9 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux_pratise/ui/pages/main/home/page.dart';
+import 'package:flutter_redux_pratise/ui/pages/main/list/page.dart';
+import 'package:flutter_redux_pratise/ui/pages/main/page.dart';
+import 'package:flutter_redux_pratise/ui/pages/main/user/page.dart';
 
 
 import 'constant/constant.dart';
@@ -12,9 +16,10 @@ import 'constant/page_route_name.dart';
 class AppConfiguration{
 
  static Map<String, Page<Object, dynamic>> sPages = <String, Page<Object, dynamic>>{
-//   PageRouteName.CAR_DETAIL: CarDetailPage(),
-
-
+   PageRouteName.MAIN: MainPage(),
+   PageRouteName.HOME: HomePage(),
+   PageRouteName.HOME_LIST: HomeListPage(),
+   PageRouteName.HOME_USER: HomeUserPage(),
  };
 
 

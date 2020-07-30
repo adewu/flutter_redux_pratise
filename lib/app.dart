@@ -26,7 +26,7 @@ class _AppState extends State<App> {
 
     FlutterBoost.singleton.registerPageBuilders({
 
-//      PageRouteName.SELF_ID_INFO : (pageName, params, _) => filterGlobalSetting(PageRouteName.SELF_ID_INFO, params),
+      PageRouteName.MAIN : (pageName, params, _) => filterGlobalSetting(PageRouteName.MAIN, params),
 
 
     });
@@ -91,8 +91,9 @@ class _AppState extends State<App> {
 
 
   _judgeRoute(){
+    Constant.routes = routes;
     if(Constant.sIsNeedMockData){
-//      return routes.buildPage(PageRouteName.PSBC_ID_INFO, null);
+      return routes.buildPage(PageRouteName.MAIN, null);
     }else{
       return Container();
     }
@@ -103,7 +104,7 @@ class _AppState extends State<App> {
     ScreenUtil.init(width: 1080,height: 1920,allowFontScaling: false);
     return OKToast(
       child: MaterialApp(
-        title: '花生好车',
+        title: 'Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.yellow,
