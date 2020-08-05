@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux_pratise/app.dart';
 
@@ -9,7 +10,10 @@ void main() {
 //    Log.upLoadNativeLog(details.exception.toString());
   };
 
-  runZoned(() => runApp(App()), zoneSpecification: ZoneSpecification(
+  runZoned(() {
+    debugPaintLayerBordersEnabled = true;
+    runApp(App());
+  }, zoneSpecification: ZoneSpecification(
     print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
       parent.print(self, line);
     },

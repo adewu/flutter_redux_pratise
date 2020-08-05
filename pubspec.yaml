@@ -31,12 +31,20 @@ dependencies:
   #https://github.com/best-flutter/flutter_swiper/blob/master/README-ZH.md#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8
   flutter_swiper: 1.1.6
 
+  shared_preferences: ^0.5.8
+
   fish_redux: ^0.3.4
 
   #https://pub.dev/packages/oktoast
   oktoast: 2.2.1
 
+  #https://pub.dev/packages/dio
+  dio: 3.0.9
+
   flutter_screenutil: ^2.1.0
+
+  #https://pub.dev/packages/cached_network_image#-installing-tab-
+  # cached_network_image: ^1.1.1
 
   flutter_boost:
     git:
@@ -46,6 +54,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  json_serializable: ^3.2.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

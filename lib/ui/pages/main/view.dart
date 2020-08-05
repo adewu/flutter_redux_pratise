@@ -7,8 +7,8 @@ import 'state.dart';
 Widget buildView(MainState state, Dispatch dispatch, ViewService viewService) {
 
   return Scaffold(
-    appBar: AppBar(title: Text("data")),
     body: PageView(
+      physics: NeverScrollableScrollPhysics(),
       controller: state.pageController,
       children: state.pages,
     ),
