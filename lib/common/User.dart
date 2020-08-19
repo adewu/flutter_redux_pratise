@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_redux_pratise/api/CommonService.dart';
+import 'package:flutter_redux_pratise/api/CommonRepository.dart';
 import 'package:flutter_redux_pratise/common/Sp.dart';
 import 'package:flutter_redux_pratise/model/login/UserModel.dart';
 import 'package:flutter_redux_pratise/utils/DateUtil.dart';
