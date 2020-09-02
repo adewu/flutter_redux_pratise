@@ -11,18 +11,23 @@ Widget buildView(
     height: 150,
     child: Swiper(
       itemBuilder: (BuildContext context, int index) {
-        return Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Image.network(
-                state.list[index].imagePath,
-                fit: BoxFit.cover,
+        return GestureDetector(
+          onTap: (){
+            print(state.list[index].imagePath);
+          },
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Image.network(
+                  state.list[index].imagePath,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            Container(
-                alignment: Alignment.bottomCenter,
-                child: Text(state.list[index].title)),
-          ],
+              Container(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(state.list[index].title)),
+            ],
+          ),
         );
       },
       itemCount: state.list.length,

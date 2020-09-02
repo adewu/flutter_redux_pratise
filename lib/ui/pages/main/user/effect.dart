@@ -9,4 +9,5 @@ Effect<HomeUserState> buildEffect() {
 }
 
 void _onAction(Action action, Context<HomeUserState> ctx) {
+  println("effect");
 }
