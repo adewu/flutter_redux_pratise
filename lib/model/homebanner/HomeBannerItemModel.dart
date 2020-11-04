@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'HomeBannerItemModel.g.dart';
 
 @JsonSerializable()
-class HomeBannerItemModel {
+class HomeBannerItemModel{
   HomeBannerItemModel(this.desc, this.id, this.imagePath, this.isVisible,
       this.order, this.title, this.type, this.url);
 
