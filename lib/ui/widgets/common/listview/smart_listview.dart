@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_redux_pratise/ui/widgets/common/listview/base_adapter.dart';
+import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
 /**
  * 1.set data
@@ -11,23 +13,19 @@ import 'package:flutter/widgets.dart';
 
 typedef LoadMoreListener(int present);
 
-class SmartListView extends StatefulWidget {
-  List<String> data;
+class SmartListView<T> extends StatefulWidget {
   int present = 0;
   int pageCount = 20;
   bool loadComplete = false;
+  BaseAdapter adapter;
   final LoadMoreListener loadMoreListener;
 
 
   SmartListView({
-    this.data,
     this.pageCount,
-    this.loadMoreListener
+    this.loadMoreListener,
+    this.adapter
   });
-
-  void addData(List<String> more){
-    data.addAll(more);
-  }
 
   @override
   State<StatefulWidget> createState() {
@@ -70,18 +68,18 @@ class SmartListViewState extends State<SmartListView> {
       },
       child: ListView.builder(
         itemCount:
-            widget.data.length,
-        itemBuilder: (context, index) {
-          return generateItem(index);
+            widget.adapter.data.datas.length,
+        itemBuilder: (context, position) {
+          return generateItem(position);
         },
       ),
     );
   }
 
-  StatelessWidget generateItem(int index) {
-    var item =  (index == widget.data.length)
+  StatelessWidget generateItem(int position) {
+    var item =  (position == widget.adapter.data.datas.length)
         ? getFooterView()
-        : getItemByIndex(index);
+        : getItemByPosition(position);
     return item;
   }
 
@@ -97,10 +95,15 @@ class SmartListViewState extends State<SmartListView> {
         );
   }
 
-  getItemByIndex(int index) {
-    return ListTile(
-      title: Text('${widget.data[index]}'),
-    );
+  getItemByPosition(int index) {
+
+    if(widget.adapter != null){
+      return widget.adapter.getWidgetByPosition(index);
+    }
+
+    // return ListTile(
+    //   title: Text('${widget.data[index]}'),
+    // );
   }
   
   

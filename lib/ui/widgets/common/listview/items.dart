@@ -1,15 +1,15 @@
-class Items {
+class Items<T> {
   int typeCount;
   List<int> types;
-  List<String> datas;
+  List<Item<T>> datas;
 
   Items({this.types, this.datas});
 
-  void setNewData(List<String> data){
+  void setNewData(List<Item<T>> data){
     datas = data;
   }
 
-  void addData(List<String> data){
+  void addData(List<Item<T>> data){
     if(datas == null){
        datas = List();
     }

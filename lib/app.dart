@@ -101,7 +101,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(width: 1080,height: 1920,allowFontScaling: false);
+    // ScreenUtil.init(context,width: 1080,height: 1920,allowFontScaling: false);
     return OKToast(
       child: MaterialApp(
         title: 'Demo',
