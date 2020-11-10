@@ -8,6 +8,7 @@ import 'state.dart';
 
 Widget buildView(
     HomeListState state, Dispatch dispatch, ViewService viewService) {
+
   return Container(
   );
 }

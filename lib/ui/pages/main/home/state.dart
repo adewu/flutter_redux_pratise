@@ -2,6 +2,9 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_redux_pratise/model/homebanner/HomeBannerItemModel.dart';
 import 'package:flutter_redux_pratise/model/list_Item.dart';
 import 'package:flutter_redux_pratise/redux/base/state.dart';
+import 'package:flutter_redux_pratise/ui/pages/main/home/home_adapter.dart';
+import 'package:flutter_redux_pratise/ui/widgets/common/listview/base_adapter.dart';
+import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 import 'package:flutter_redux_pratise/ui/widgets/component/banner/state.dart';
 
 class HomeState extends BaseState implements Cloneable<HomeState> {
@@ -9,7 +12,10 @@ class HomeState extends BaseState implements Cloneable<HomeState> {
   List<HomeBannerItemModel> bannerItemList;
   List<ListItem> listItem;
   int listCount = 0;
+  HomeAdapter adapter;
 
+  int typeCount;
+  Items data;
 
   @override
   HomeState clone() {
@@ -17,6 +23,11 @@ class HomeState extends BaseState implements Cloneable<HomeState> {
       .. bannerItemList = bannerItemList
       .. listItem = listItem
       .. listCount = listCount
+      .. adapter = adapter
+
+      .. typeCount = typeCount
+      .. data = data
+
       .. currentState = currentState;
   }
 }
@@ -25,6 +36,7 @@ HomeState initState(Map<String, dynamic> args) {
 
   return HomeState() .. currentState = ApiState.loading
     ..listCount = 0
+    ..adapter = HomeAdapter(0)
     .. listItem = new List<ListItem>()
     .. bannerItemList = new List<HomeBannerItemModel>();
 }

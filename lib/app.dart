@@ -1,5 +1,5 @@
-import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart' hide Action;
+import 'package:fish_redux/fish_redux.dart' ;
+import 'package:flutter/material.dart' hide Action,Page;
 import 'package:flutter_boost/flutter_boost.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux_pratise/app_configuration.dart';

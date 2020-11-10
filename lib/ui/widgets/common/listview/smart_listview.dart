@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/base_adapter.dart';
@@ -12,17 +14,15 @@ import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
  */
 
 typedef LoadMoreListener(int present);
+typedef RefreshCallback();
 
 class SmartListView<T> extends StatefulWidget {
-  int present = 0;
-  int pageCount = 20;
-  bool loadComplete = false;
   BaseAdapter adapter;
   final LoadMoreListener loadMoreListener;
-
+  final RefreshCallback refreshListener;
 
   SmartListView({
-    this.pageCount,
+    this.refreshListener,
     this.loadMoreListener,
     this.adapter
   });
@@ -44,66 +44,72 @@ class SmartListViewState extends State<SmartListView> {
 
   void loadMore() {
     if(widget.loadMoreListener != null){
-      widget.loadMoreListener(widget.present);
+      widget.loadMoreListener(widget.adapter.present);
     }
-//    setState(() {
-//      if ((widget.present + widget.pageCount) > originalItems.length) {
-//        items.addAll(originalItems.getRange(widget.present, originalItems.length));
-//      } else {
-//        items.addAll(originalItems.getRange(widget.present, widget.present + widget.pageCount));
-//      }
-//      widget.present = widget.present + widget.pageCount;
-//    });
   }
 
   @override
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
       onNotification: (ScrollNotification scrollInfo) {
-        if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent && widget.loadComplete) {
-          loadMore();
+        if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
           return true;
         }
         return false;
       },
-      child: ListView.builder(
-        itemCount:
-            widget.adapter.data.datas.length,
-        itemBuilder: (context, position) {
-          return generateItem(position);
+      child: RefreshIndicator(
+        onRefresh: () {
+          if(widget.refreshListener != null){
+            widget.refreshListener();
+          }
+         return widget.adapter.completer.future;
         },
-      ),
+        child: ListView.builder(
+          itemCount:
+          widget.adapter.getDataSize(),
+          itemBuilder: (context, position) {
+            print("position" + position.toString());
+            print("widget.adapter.getDataSize()" + widget.adapter.getDataSize().toString());
+            if(position == widget.adapter.getDataSize() - 1){
+              print("loadmore");
+              loadMore();
+              widget.adapter.loadingMore = true;
+            }
+            return generateItem(position);
+          },
+        ),
+      )
     );
   }
 
   StatelessWidget generateItem(int position) {
-    var item =  (position == widget.adapter.data.datas.length)
-        ? getFooterView()
-        : getItemByPosition(position);
-    return item;
+//    print(position.toString() + "position == widget.adapter.mData.datas.length" + widget.adapter.mData.datas.length.toString());
+//    var item =  (position == widget.adapter.mData.datas.length)
+//        ? getFooterView()
+//        : getItemByPosition(position);
+
+    return getItemByPosition(position);
   }
 
-  Container getFooterView() {
-    return Container(
-          color: Colors.greenAccent,
-          child: FlatButton(
-            child: Text("Load More"),
-            onPressed: () {
-              loadMore();
-            },
-          ),
-        );
-  }
+//  Container getFooterView() {
+//    print("getFooterView");
+//    return Container(
+//          color: Colors.greenAccent,
+//          child: FlatButton(
+//            child: Text("Load More"),
+//            onPressed: () {
+//              loadMore();
+//            },
+//          ),
+//        );
+//  }
 
-  getItemByPosition(int index) {
+  getItemByPosition(int position) {
 
     if(widget.adapter != null){
-      return widget.adapter.getWidgetByPosition(index);
+      return widget.adapter.getWidgetByPosition(position);
     }
 
-    // return ListTile(
-    //   title: Text('${widget.data[index]}'),
-    // );
   }
   
   
