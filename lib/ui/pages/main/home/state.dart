@@ -14,7 +14,6 @@ class HomeState extends BaseState implements Cloneable<HomeState> {
   int listCount = 0;
   HomeAdapter adapter;
 
-  int typeCount;
   Items data;
 
   @override
@@ -24,8 +23,6 @@ class HomeState extends BaseState implements Cloneable<HomeState> {
       .. listItem = listItem
       .. listCount = listCount
       .. adapter = adapter
-
-      .. typeCount = typeCount
       .. data = data
 
       .. currentState = currentState;
@@ -36,7 +33,7 @@ HomeState initState(Map<String, dynamic> args) {
 
   return HomeState() .. currentState = ApiState.loading
     ..listCount = 0
-    ..adapter = HomeAdapter(0)
+    ..adapter = HomeAdapter()
     .. listItem = new List<ListItem>()
     .. bannerItemList = new List<HomeBannerItemModel>();
 }

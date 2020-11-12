@@ -35,6 +35,9 @@ dependencies:
 
   shared_preferences: ^0.5.8
 
+  #https://github.com/xuelongqy/flutter_easyrefresh
+  flutter_easyrefresh: ^2.1.6
+
   fish_redux: ^0.3.4
 
   #https://pub.dev/packages/oktoast
@@ -45,6 +48,8 @@ dependencies:
 
   flutter_screenutil: ^2.1.0
 
+  #https://pub.dev/packages/logger/changelog
+  logger: ^0.9.4
 
   #https://pub.dev/packages/cached_network_image#-installing-tab-
   # cached_network_image: ^1.1.1

@@ -1,11 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'action.dart';
 import 'state.dart';
 
 Widget buildView(MainState state, Dispatch dispatch, ViewService viewService) {
-
+  SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   return Scaffold(
     body: PageView(
       physics: NeverScrollableScrollPhysics(),

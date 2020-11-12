@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/base_adapter.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
@@ -21,11 +22,7 @@ class SmartListView<T> extends StatefulWidget {
   final LoadMoreListener loadMoreListener;
   final RefreshCallback refreshListener;
 
-  SmartListView({
-    this.refreshListener,
-    this.loadMoreListener,
-    this.adapter
-  });
+  SmartListView({this.refreshListener, this.loadMoreListener, this.adapter});
 
   @override
   State<StatefulWidget> createState() {
@@ -34,83 +31,53 @@ class SmartListView<T> extends StatefulWidget {
 }
 
 class SmartListViewState extends State<SmartListView> {
-//  final originalItems = List<String>.generate(10000, (i) => "Item $i");
-//  var items = List<String>();
-
   @override
   void initState() {
     super.initState();
   }
 
   void loadMore() {
-    if(widget.loadMoreListener != null){
+    if (widget.loadMoreListener != null) {
       widget.loadMoreListener(widget.adapter.present);
+    }
+  }
+
+  void refresh() {
+    if (widget.refreshListener != null) {
+      widget.refreshListener();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return NotificationListener<ScrollNotification>(
-      onNotification: (ScrollNotification scrollInfo) {
-        if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-          return true;
-        }
-        return false;
+    return EasyRefresh(
+      header: ClassicalHeader(),
+      footer: ClassicalFooter(),
+      onRefresh: () async {
+        refresh();
+        await widget.adapter.refresh().then((value) {
+          print("onRefresh: () async");
+          widget.adapter.ezRefreshCtrl.finishRefresh(success: true);
+        });
       },
-      child: RefreshIndicator(
-        onRefresh: () {
-          if(widget.refreshListener != null){
-            widget.refreshListener();
-          }
-         return widget.adapter.completer.future;
+      onLoad: () async {
+        loadMore();
+        await widget.adapter.loadMore(widget.adapter.ezRefreshCtrl).then((value) {
+          print("onLoad: () async");
+          widget.adapter.ezRefreshCtrl.finishLoad(success: true,noMore: false);
+        });
+      },
+      controller: widget.adapter.ezRefreshCtrl,
+      enableControlFinishRefresh: true,
+      enableControlFinishLoad: true,
+      child: ListView.builder(
+        itemCount: widget.adapter.getDataSize(),
+        itemBuilder: (context, position) {
+          print("position" + position.toString() + "------"+"widget.adapter.getDataSize()" +
+              widget.adapter.getDataSize().toString());
+          return widget.adapter.getWidgetByPosition(position);
         },
-        child: ListView.builder(
-          itemCount:
-          widget.adapter.getDataSize(),
-          itemBuilder: (context, position) {
-            print("position" + position.toString());
-            print("widget.adapter.getDataSize()" + widget.adapter.getDataSize().toString());
-            if(position == widget.adapter.getDataSize() - 1){
-              print("loadmore");
-              loadMore();
-              widget.adapter.loadingMore = true;
-            }
-            return generateItem(position);
-          },
-        ),
-      )
+      ),
     );
   }
-
-  StatelessWidget generateItem(int position) {
-//    print(position.toString() + "position == widget.adapter.mData.datas.length" + widget.adapter.mData.datas.length.toString());
-//    var item =  (position == widget.adapter.mData.datas.length)
-//        ? getFooterView()
-//        : getItemByPosition(position);
-
-    return getItemByPosition(position);
-  }
-
-//  Container getFooterView() {
-//    print("getFooterView");
-//    return Container(
-//          color: Colors.greenAccent,
-//          child: FlatButton(
-//            child: Text("Load More"),
-//            onPressed: () {
-//              loadMore();
-//            },
-//          ),
-//        );
-//  }
-
-  getItemByPosition(int position) {
-
-    if(widget.adapter != null){
-      return widget.adapter.getWidgetByPosition(position);
-    }
-
-  }
-  
-  
 }

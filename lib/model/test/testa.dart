@@ -1,9 +1,10 @@
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
-class TestA extends Item{
+class Normal extends Item{
 //  TestA(this.type,this.text,this.img);
   String text;
   String img;
+  String from;
 
-  TestA(int type,this.text,this.img) : super(type);
+  Normal(int type,this.text,this.img,this.from) : super(type);
 }

@@ -2,43 +2,42 @@ import 'dart:async';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/src/refresher.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/common_item_view.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
 abstract class BaseAdapter {
-  int typeCount;
   List<AdapterView> _views;
   Items _mData;
   bool loadMoreAble = true;
-  bool loadingMore = false;
   int present = 0;
-  final Completer<void> completer = Completer<void>();
 
+  EasyRefreshController ezRefreshCtrl = EasyRefreshController();
 
-  BaseAdapter(this.typeCount);
+  Completer<Void> _refreshCompleter = Completer();
+  Completer<Void> _loadCompleter = Completer();
+
+  BaseAdapter();
 
   setNewData(List<Item> data){
     if(_mData == null){
       _mData = Items();
     }
-    removeLoadMoreItemIfHas();
     if(_mData.datas != null) {
       _mData.datas.clear();
     }
-    completer.complete();
     _mData.addAllData(data);
     present = 0;
-    checkIsLoadMoreAble();
+    _refreshCompleter.complete();
   }
 
   addData(List<Item> data){
     if(_mData == null){
       _mData = Items();
     }
-    removeLoadMoreItemIfHas();
     _mData.addAllData(data);
     present += 1;
-    checkIsLoadMoreAble();
+    _loadCompleter.complete();
   }
 
   addAdapterViews(List<AdapterView> views){
@@ -46,9 +45,7 @@ abstract class BaseAdapter {
       _views = List();
     }
     _views.addAll(views);
-    if(loadMoreAble){
-      _views.add(FooterItemView(-1));
-    }
+
   }
 
   int getDataSize(){
@@ -79,6 +76,17 @@ abstract class BaseAdapter {
       );
     }
     return widget;
+  }
+
+  Future refresh(){
+    _refreshCompleter = Completer();
+    return _refreshCompleter.future;
+  }
+
+  Future loadMore(EasyRefreshController controller){
+    _loadCompleter = Completer();
+    return _loadCompleter.future;
+
   }
 
   void checkIsLoadMoreAble() {
