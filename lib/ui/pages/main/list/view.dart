@@ -71,10 +71,10 @@ class _PageContentViewState extends State<PageContentView> {
   GridView creteGridView() {
     var gridView = GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 5,
-          mainAxisSpacing: 3,
-          childAspectRatio: 0.6),
+          crossAxisCount: 3,
+          crossAxisSpacing: 0,
+          mainAxisSpacing: 5,
+          childAspectRatio: 1),
       itemBuilder: (context, index) {
         RankingItemModel itemModel = items[index];
         var tile = ListTile(
