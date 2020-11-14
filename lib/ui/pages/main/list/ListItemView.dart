@@ -16,7 +16,7 @@ class ListItemView extends StatelessWidget {
 
   Widget getView() {
     return Container(
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.only(left: 10,right: 10,top: 10),
       child: Container(
         child: Column(
           children: [

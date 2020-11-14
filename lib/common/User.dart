@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_redux_pratise/api/CommonRepository.dart';
 import 'package:flutter_redux_pratise/common/Sp.dart';
 import 'package:flutter_redux_pratise/model/login/UserModel.dart';
 import 'package:flutter_redux_pratise/utils/DateUtil.dart';
@@ -65,14 +64,14 @@ class User {
   }
 
   void login({Function callback}) {
-    _saveUserInfo(CommonService().login(userName, password), userName, password,
-        callback: callback);
+    // _saveUserInfo(CommonService().login(userName, password), userName, password,
+    //     callback: callback);
   }
 
   void register({Function callback}) {
-    _saveUserInfo(
-        CommonService().register(userName, password), userName, password,
-        callback: callback);
+    // _saveUserInfo(
+    //     CommonService().register(userName, password), userName, password,
+    //     callback: callback);
   }
 
   void _saveUserInfo(

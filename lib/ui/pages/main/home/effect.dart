@@ -1,5 +1,4 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter_redux_pratise/api/CommonRepository.dart';
 import 'package:flutter_redux_pratise/data/db/dao/list_item.dart';
 import 'package:flutter_redux_pratise/data/db/dbmanager.dart';
 import 'package:flutter_redux_pratise/model/home/banner.dart';
