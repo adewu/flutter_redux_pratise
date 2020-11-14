@@ -18,7 +18,6 @@ class HomePage extends Page<HomeState, Map<String, dynamic>> {
             dependencies: Dependencies<HomeState>(
                 adapter: null,
                 slots: <String, Dependent<HomeState>>{
-                  BannerComponent.COMPONENT_NAME : BannerConnector() + BannerComponent(),
                 }),
             middleware: <Middleware<HomeState>>[
             ],);

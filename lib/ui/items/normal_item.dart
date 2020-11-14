@@ -16,7 +16,7 @@ class TestAItem extends AdapterView {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 19),
               child: Row(
                 children: <Widget>[
                   Expanded(
