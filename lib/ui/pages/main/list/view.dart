@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux_pratise/ui/pages/main/list/ListItemView.dart';
 import 'state.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import '../../../../model/list/BaseModel.dart';
@@ -30,8 +31,11 @@ class _PageContentViewState extends State<PageContentView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('分类'),
-        backgroundColor: Colors.white,
+        title: Text(
+          '分类',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue,
       ),
       body: EasyRefresh(
         enableControlFinishLoad: true,
@@ -57,8 +61,6 @@ class _PageContentViewState extends State<PageContentView> {
       BaseModel baseModel = new BaseModel.fromMap(value);
       RankingMainModel mainModel =
           RankingMainModel.fromJson(baseModel.data.returnData);
-      print(mainModel.rankingList);
-
       setState(() {
         items = mainModel.rankingList;
       });
@@ -73,23 +75,15 @@ class _PageContentViewState extends State<PageContentView> {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           crossAxisSpacing: 0,
-          mainAxisSpacing: 5,
+          mainAxisSpacing: 0,
           childAspectRatio: 1),
       itemBuilder: (context, index) {
         RankingItemModel itemModel = items[index];
-        var tile = ListTile(
-          title: Text(
-            itemModel.sortName,
-            style: TextStyle(color: Colors.deepOrangeAccent),
-          ),
-          subtitle: Image.network(itemModel.cover),
-          onTap: () {
-            print('点击的条目 $index');
-          },
-        );
-        return tile;
+        ListItemView itemView = ListItemView(itemModel);
+        return itemView;
       },
       itemCount: items.length,
+
     );
     return gridView;
   }
