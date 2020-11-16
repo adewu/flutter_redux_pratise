@@ -6,12 +6,12 @@ import 'state.dart';
 Reducer<RecommendState> buildReducer() {
   return asReducer(
     <Object, Reducer<RecommendState>>{
-      RecommendAction.action: _onAction,
+      RecommendAction.updateUI: _onUpdateUI,
     },
   );
 }
 
-RecommendState _onAction(RecommendState state, Action action) {
+RecommendState _onUpdateUI(RecommendState state, Action action) {
   final RecommendState newState = state.clone();
   return newState;
 }

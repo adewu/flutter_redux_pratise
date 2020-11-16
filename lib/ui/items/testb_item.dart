@@ -6,7 +6,7 @@ import 'package:flutter_redux_pratise/ui/widgets/common/listview/base_adapter.da
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
 class TestBItem extends AdapterView{
-  TestBItem(int type) : super(type);
+  TestBItem(int type) : super(type,null);
 
   @override
   Widget createView(Item bean) {

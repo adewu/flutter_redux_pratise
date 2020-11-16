@@ -14,4 +14,16 @@ class HomeRepository extends BaseRepository{
       return Future.error(response.data.message);
     }
   }
+
+  Future<BaseModel> requestHomeRecommendList() async {
+    var m = Map<String,dynamic>();
+    m["sexType"] = 0;
+    BaseModel response =
+    await request(Api.boutiqueList, m, isContentTypeJson: true);
+    if (response != null && response.code == 1) {
+      return response;
+    } else {
+      return Future.error(response.data.message);
+    }
+  }
 }

@@ -1,42 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
-class RecommondMainModel {
+class RecommendMainModel {
   var galleryItems;
   var textItems;
   List<ComicMainModel> comicLists;
 
-  RecommondMainModel({
+  RecommendMainModel({
     this.galleryItems,
     this.textItems,
     this.comicLists,
   });
 
-  factory RecommondMainModel.fromJson(Map map) {
+  factory RecommendMainModel.fromJson(Map map) {
     print(map);
     var arr = List<ComicMainModel>();
     map['comicLists'].forEach((value) {
        var e = ComicMainModel.fromJson(value);
       arr.add(e);
     });
-    return RecommondMainModel(
+    return RecommendMainModel(
         galleryItems: map['galleryItems'],
         textItems: map['textItems'],
         comicLists: arr);
   }
 }
 
-class ComicMainModel {
+class ComicMainModel extends Item{
   // var comicType;
   // var canedit;
   // var sortId;
   // var titleIconUrl;
-  // var newTitleIconUrl;
+  String newTitleIconUrl;
   String description;
   String itemTitle;
 
-  // var argName;
-  // var argValue;
-  // var argType;
+  String argName;
+  int argValue;
+  int argType;
   List<ComicItemModel> comics;
 
   ComicMainModel({
@@ -44,14 +45,14 @@ class ComicMainModel {
     // this.canedit,
     // this.sortId,
     // this.titleIconUrl,
-    // this.newTitleIconUrl,
+    this.newTitleIconUrl,
     this.description,
     this.itemTitle,
-    // this.argName,
-    // this.argValue,
-    // this.argType,
+    this.argName,
+    this.argValue,
+    this.argType,
     this.comics,
-  });
+  }) : super(0);
 
   factory ComicMainModel.fromJson(Map map) {
     print('解析ComicMainModel $map');
@@ -65,11 +66,12 @@ class ComicMainModel {
       // canedit: map['canedit'],
       // sortId: map['sortId'],
       // titleIconUrl: map['titleIconUrl'],
-      // newTitleIconUrl: map['newTitleIconUrl'],
+      newTitleIconUrl: map['newTitleIconUrl'],
       description: map['description'],
       itemTitle: map['itemTitle'],
-      // argName: map['argName'],
-      // argValue: map['argValue'],
+      argName: map['argName'],
+      argValue: map['argValue'],
+      argType: map['argType'],
       comics: list,
     );
   }
@@ -83,6 +85,8 @@ class ComicItemModel {
   String cornerInfo = '';
   String short_description = '';
   String author_name = '';
+  List<String> tags;
+  // String is_vip = '';
   // String is_vip = '';
 
   ComicItemModel({
@@ -93,6 +97,7 @@ class ComicItemModel {
     this.cornerInfo,
     this.short_description,
     this.author_name,
+    this.tags,
     // this.is_vip,
   });
 
@@ -105,6 +110,7 @@ class ComicItemModel {
       cornerInfo: map['cornerInfo'],
       short_description: map['short_description'],
       author_name: map['author_name'],
+      tags:(map['tags'] as List)?.map((e) => e as String)?.toList(),
       // is_vip: map['is_vip'],
     );
   }

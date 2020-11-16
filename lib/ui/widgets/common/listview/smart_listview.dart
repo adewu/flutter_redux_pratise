@@ -60,20 +60,29 @@ class SmartListViewState extends State<SmartListView> {
           widget.adapter.ezRefreshCtrl.finishRefresh(success: true);
         });
       },
-      onLoad: () async {
-        loadMore();
-        await widget.adapter.loadMore(widget.adapter.ezRefreshCtrl).then((value) {
-          print("onLoad: () async");
-          widget.adapter.ezRefreshCtrl.finishLoad(success: true,noMore: false);
-        });
-      },
+      onLoad: !widget.adapter.needLoadMore()
+          ? null
+          : () async {
+              loadMore();
+              await widget.adapter
+                  .loadMore(widget.adapter.ezRefreshCtrl)
+                  .then((value) {
+                print("onLoad: () async");
+                widget.adapter.ezRefreshCtrl
+                    .finishLoad(success: true, noMore: false);
+              });
+            },
       controller: widget.adapter.ezRefreshCtrl,
       enableControlFinishRefresh: true,
       enableControlFinishLoad: true,
       child: ListView.builder(
+        shrinkWrap: true,
         itemCount: widget.adapter.getDataSize(),
         itemBuilder: (context, position) {
-          print("position" + position.toString() + "------"+"widget.adapter.getDataSize()" +
+          print("position" +
+              position.toString() +
+              "------" +
+              "widget.adapter.getDataSize()" +
               widget.adapter.getDataSize().toString());
           return widget.adapter.getWidgetByPosition(position);
         },

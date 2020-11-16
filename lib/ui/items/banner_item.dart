@@ -8,7 +8,7 @@ import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class BannerItemView extends AdapterView {
-  BannerItemView(int type) : super(type);
+  BannerItemView(int type) : super(type,null);
 
   @override
   createView(Item bean) {

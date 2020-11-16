@@ -7,10 +7,12 @@ import 'package:flutter_redux_pratise/ui/widgets/common/listview/common_item_vie
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
 abstract class BaseAdapter {
-  List<AdapterView> _views;
+  Set<AdapterView> _views;
   Items _mData;
   bool loadMoreAble = true;
   int present = 0;
+
+  bool needLoadMore();
 
   EasyRefreshController ezRefreshCtrl = EasyRefreshController();
 
@@ -42,15 +44,21 @@ abstract class BaseAdapter {
 
   addAdapterViews(List<AdapterView> views){
     if(_views == null){
-      _views = List();
+      _views = Set();
     }
     _views.addAll(views);
+  }
 
+  addAdapterView(AdapterView view){
+    if(_views == null){
+      _views = Set();
+    }
+    _views.add(view);
   }
 
   int getDataSize(){
     var size = 0;
-    if(_mData.datas != null){
+    if(_mData != null && _mData.datas != null){
       size = _mData.datas.length;
     }
     return size;
@@ -104,8 +112,9 @@ abstract class BaseAdapter {
 
 abstract class AdapterView {
   int type;
+  BuildContext context;
 
-  AdapterView(this.type);
+  AdapterView(this.type,this.context);
 
   Widget createView(Item bean);
 }
