@@ -19,5 +19,7 @@ class ColorConfig{
   static final Color x222222 = Color(0xff222222);
   static final Color fafafa = Color(0xfafafa);
   static final Color f7f7f7 = Color(0xf7f7f7);
+  static final Color xDCF7E8 = Color(0xffdcf7e8);
+  static final Color x9AE8C2 = Color(0xff9ae8c2);
   static final Color blue = Colors.blue;
 }

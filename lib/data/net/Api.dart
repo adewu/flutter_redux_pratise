@@ -1,4 +1,4 @@
-class ManApi {
+class Api {
   ///
   static final String BASE_URL = "http://app.u17.com/v3/appV3_3/ios/phone/";
 
