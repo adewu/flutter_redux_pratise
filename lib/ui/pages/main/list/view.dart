@@ -76,7 +76,7 @@ class _PageContentViewState extends State<PageContentView> {
           crossAxisCount: 3,
           crossAxisSpacing: 0,
           mainAxisSpacing: 0,
-          childAspectRatio: 1),
+          childAspectRatio: 0.9),
       itemBuilder: (context, index) {
         RankingItemModel itemModel = items[index];
         ListItemView itemView = ListItemView(itemModel);

@@ -25,16 +25,12 @@ class ListItemView extends StatelessWidget {
                 color: Colors.transparent, //设置背景底色透明
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0),topRight: Radius.circular(10.0)),
                 clipBehavior: Clip.antiAlias, //注意这个属性
-                child: Image(
-                  image: NetworkImage(
-                    this.rankingItemModel.cover,
-                  ),
-                  fit: BoxFit.fill,
+                child: Image(image: NetworkImage(this.rankingItemModel.cover,), fit: BoxFit.cover,
                 ),
               ),
             ),
-            // Image.network(this.rankingItemModel.cover,fit: BoxFit.fill,),
-            Text(rankingItemModel.sortName),
+
+            Text(rankingItemModel.sortName,style: TextStyle(textBaseline: TextBaseline.alphabetic),),
           ],
         ),
         decoration: BoxDecoration(
