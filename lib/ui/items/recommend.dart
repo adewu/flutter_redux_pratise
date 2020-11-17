@@ -40,7 +40,10 @@ class RecommendGridItem extends AdapterView {
       //三列
       return MediaQuery.removePadding(
           context: context, removeTop: true, child: generateThreeCols(model.itemArray));
-    } else {
+    }else if(model.moduleType == 4 && model.uiType == 1) {
+      //动画影视list
+      return generateHorAnimationList(context, model.items);
+    }else {
       return MediaQuery.removePadding(
           context: context, removeTop: true, child: gridView);
     }
@@ -51,7 +54,7 @@ class RecommendGridItem extends AdapterView {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, crossAxisSpacing: 5, childAspectRatio: 0.6),
+          crossAxisCount: 3, crossAxisSpacing: 5, childAspectRatio: 0.68),
       itemBuilder: (context, index) {
         Item itemModel = list[index][0];
         return generateCard(itemModel,isUseInGridView: true);
@@ -106,6 +109,33 @@ class RecommendGridItem extends AdapterView {
     );
   }
 
+  //横向动画影视list
+  Widget generateHorAnimationList(BuildContext context, List<Item> list) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom:8.0),
+      child: Container(
+        height: 200,
+        child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: list.length,
+            itemBuilder: (context, position) {
+              return Padding(
+                padding: const EdgeInsets.only(left : 10.0,),
+                child: Container(
+                  child: Image(
+                    image: NetworkImage(
+                      list[position].cover ?? "",
+                    ),
+                    fit: BoxFit.scaleDown,
+                  ),
+                ),
+              );
+            }),
+      ),
+    );
+  }
+
   @override
   Widget createView(AdapterItem bean) {
     var model = bean as Module;
@@ -131,9 +161,9 @@ class RecommendGridItem extends AdapterView {
                 Text(
                   model.moduleInfo.title,
                   style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       color: ColorConfig.black,
-                      fontWeight: FontWeight.w500),
+                      fontWeight: FontWeight.w800),
                 ),
               ],
             ),
