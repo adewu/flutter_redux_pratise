@@ -5,16 +5,34 @@ import 'package:flutter_redux_pratise/config/color_config.dart';
 
 typedef OnIndicatorSelected(int position);
 
-class TopTextIndicator extends StatelessWidget {
+
+class TopTextIndicator extends StatefulWidget {
+
   TopTextIndicatorItems items;
   OnIndicatorSelected listener;
   TopTextIndicator(this.items,this.listener);
 
   @override
+  _TopTextIndicatorState createState() {
+    return _TopTextIndicatorState();
+  }
+}
+
+class _TopTextIndicatorState extends State<TopTextIndicator> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 80,
-      color: Colors.green,
       child: Padding(
         padding: const EdgeInsets.only(top: 40),
         child: Center(
@@ -29,10 +47,18 @@ class TopTextIndicator extends StatelessWidget {
     );
   }
 
+  void switchIndicator(int index) {
+    if (index < widget.items.texts.length) {
+      setState(() {
+        widget.items.selected = index;
+      });
+    }
+  }
+
   List<Widget> _generateTexts() {
     var list = List<Widget>();
     var i = 0;
-    for (var value in items.texts) {
+    for (var value in widget.items.texts) {
       list.add(_generateText(value,i));
       i += 1;
     }
@@ -42,8 +68,8 @@ class TopTextIndicator extends StatelessWidget {
   Widget _generateText(String value,int position) {
     return GestureDetector(
       onTap: (){
-        if(listener != null){
-          listener(position);
+        if(widget.listener != null){
+          widget.listener(position);
         }
       },
       child: Container(
@@ -51,13 +77,14 @@ class TopTextIndicator extends StatelessWidget {
         child: Center(
           child: Text(
             value,
-            style: TextStyle(fontSize: 20.0,color: position == items.selected ? ColorConfig.xDCF7E8 : ColorConfig.x9AE8C2),
+            style: TextStyle(fontSize:position == widget.items.selected ? 21.0 : 17.0,color: position == widget.items.selected ? ColorConfig.black : ColorConfig.x9AE8C2),
           ),
         ),
       ),
     );
   }
 }
+
 
 class TopTextIndicatorItems{
   List<String> texts;

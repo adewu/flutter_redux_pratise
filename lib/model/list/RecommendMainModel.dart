@@ -2,116 +2,160 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
 class RecommendMainModel {
-  var galleryItems;
+  GalleryItems galleryItems;
   var textItems;
-  List<ComicMainModel> comicLists;
+  Modules modules;
 
   RecommendMainModel({
     this.galleryItems,
     this.textItems,
-    this.comicLists,
+    this.modules,
   });
 
   factory RecommendMainModel.fromJson(Map map) {
-    print(map);
-    var arr = List<ComicMainModel>();
-    map['comicLists'].forEach((value) {
-       var e = ComicMainModel.fromJson(value);
-      arr.add(e);
+    var gitems = List<GalleryItem>();
+    map['galleryItems'].forEach((value) {
+      gitems.add(GalleryItem.fromJson(value));
+    });
+    var mitems = List<Module>();
+    map['modules'].forEach((value) {
+      mitems.add(Module.fromJson(value));
     });
     return RecommendMainModel(
-        galleryItems: map['galleryItems'],
+        galleryItems: GalleryItems(galleryItems: gitems),
         textItems: map['textItems'],
-        comicLists: arr);
+        modules: Modules(modules: mitems));
   }
 }
 
-class ComicMainModel extends Item{
-  // var comicType;
-  // var canedit;
-  // var sortId;
-  // var titleIconUrl;
-  String newTitleIconUrl;
-  String description;
-  String itemTitle;
+class GalleryItems extends AdapterItem {
+  List<GalleryItem> galleryItems;
 
+  GalleryItems({this.galleryItems}) : super(0);
+}
+
+class Modules {
+  List<Module> modules;
+
+  Modules({this.modules});
+}
+
+class GalleryItem {
+  int linkType;
+  String cover;
+  int id;
+  String title;
+  String content;
+  String topCover;
+
+  GalleryItem({
+    this.linkType,
+    this.cover,
+    this.id,
+    this.title,
+    this.content,
+    this.topCover,
+  });
+
+  factory GalleryItem.fromJson(Map map) {
+    return GalleryItem(
+      linkType: map['linkType'],
+      cover: map['cover'],
+      id: map['id'],
+      title: map['title'],
+      content: map['content'],
+      topCover: map['topCover'],
+    );
+  }
+
+}
+
+class ModuleInfo {
   String argName;
   int argValue;
-  int argType;
-  List<ComicItemModel> comics;
+  String title;
+  String icon;
+  String bgCover;
 
-  ComicMainModel({
-    // this.comicType,
-    // this.canedit,
-    // this.sortId,
-    // this.titleIconUrl,
-    this.newTitleIconUrl,
-    this.description,
-    this.itemTitle,
-    this.argName,
-    this.argValue,
-    this.argType,
-    this.comics,
-  }) : super(0);
+  ModuleInfo(
+      {this.argName, this.argValue, this.title, this.icon, this.bgCover});
 
-  factory ComicMainModel.fromJson(Map map) {
-    print('解析ComicMainModel $map');
-    List <ComicItemModel> list = [];
-    comics: map['comics'].forEach((value) {
-      ComicItemModel comicItemModel =  ComicItemModel.fromJson(value);
-      list.add(comicItemModel);
-    });
-    return ComicMainModel(
-      // comicType: map['comicType'],
-      // canedit: map['canedit'],
-      // sortId: map['sortId'],
-      // titleIconUrl: map['titleIconUrl'],
-      newTitleIconUrl: map['newTitleIconUrl'],
-      description: map['description'],
-      itemTitle: map['itemTitle'],
+  factory ModuleInfo.fromJson(Map map) {
+    return ModuleInfo(
       argName: map['argName'],
       argValue: map['argValue'],
-      argType: map['argType'],
-      comics: list,
+      title: map['title'],
+      icon: map['icon'],
+      bgCover: map['bgCover'],
     );
   }
 }
 
-class ComicItemModel {
-  String name = '';
-  String cover = '';
-  String subTitle = '';
-  String description = '';
-  String cornerInfo = '';
-  String short_description = '';
-  String author_name = '';
-  List<String> tags;
-  // String is_vip = '';
-  // String is_vip = '';
+class Item {
+  int linkType;
+  int comicId;
+  String title;
+  String cover;
+  String subTitle;
+  String content;
 
-  ComicItemModel({
-    this.name,
-    this.cover,
-    this.subTitle,
-    this.description,
-    this.cornerInfo,
-    this.short_description,
-    this.author_name,
-    this.tags,
-    // this.is_vip,
-  });
+  Item({this.linkType, this.comicId, this.title, this.cover, this.subTitle,
+    this.content});
 
-  factory ComicItemModel.fromJson(Map map) {
-    return ComicItemModel(
-      name: map['name'],
+  factory Item.fromJson(Map map) {
+    return Item(
+      linkType: map['linkType'],
+      comicId: map['comicId'],
+      title: map['title'],
       cover: map['cover'],
       subTitle: map['subTitle'],
-      description: map['description'],
-      cornerInfo: map['cornerInfo'],
-      short_description: map['short_description'],
-      author_name: map['author_name'],
-      tags:(map['tags'] as List)?.map((e) => e as String)?.toList(),
-      // is_vip: map['is_vip'],
+      content: map['content'],
+    );
+  }
+}
+
+class Module extends AdapterItem {
+
+  int itemCount;
+  int moduleType;
+  int uiType;
+  ModuleInfo moduleInfo;
+  List<Item> items;
+  List<List<Item>> itemArray;
+
+  Module({
+    this.moduleType,
+    this.uiType,
+    this.moduleInfo,
+    this.items,
+    this.itemArray,
+    this.itemCount,
+  }) : super(1);
+
+  factory Module.fromJson(Map map) {
+    List <Item> list = [];
+    List<List<Item>> listArray = [];
+    var c = 0;
+    map['items'].forEach((value) {
+      if (value is List) {
+        List<Item> l = [];
+        value.forEach((element) {
+          l.add(Item.fromJson(element));
+        });
+        listArray.add(l);
+        c++;
+      } else {
+        list.add(Item.fromJson(value));
+        c++;
+      }
+    });
+    return Module(
+      moduleType: map['moduleType'],
+      uiType: map['uiType'],
+      moduleInfo: ModuleInfo.fromJson(map['moduleInfo']),
+      items: list,
+      itemArray: listArray,
+      itemCount : c,
     );
   }
 }

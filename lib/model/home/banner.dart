@@ -1,6 +1,6 @@
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
-class Banner extends Item{
+class Banner extends AdapterItem{
   List<BannerItem> list;
 
   Banner(int type,this.list) : super(type);

@@ -12,8 +12,8 @@ class Api {
   static final String searchResult = BASE_URL + "comic/boutiqueListNew";
 
   //推荐列表
-  // static final String boutiqueList = BASE_URL + "project/tree/json";
-  static final String boutiqueList = BASE_URL + "comic/boutiqueListNew";
+  // static final String boutiqueList = BASE_URL + "comic/boutiqueListNew";
+  static final String boutiqueList = BASE_URL + "comic/getDetectListV4_5";
 
   //专题
   static final String special = BASE_URL + "comic/special";

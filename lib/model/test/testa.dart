@@ -1,6 +1,6 @@
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
-class Normal extends Item{
+class Normal extends AdapterItem{
 //  TestA(this.type,this.text,this.img);
   String text;
   String img;

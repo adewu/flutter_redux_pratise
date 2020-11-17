@@ -17,7 +17,7 @@ class HomeRepository extends BaseRepository{
 
   Future<BaseModel> requestHomeRecommendList() async {
     var m = Map<String,dynamic>();
-    m["sexType"] = 0;
+    // m["sexType"] = 0;
     BaseModel response =
     await request(Api.boutiqueList, m, isContentTypeJson: true);
     if (response != null && response.code == 1) {

@@ -9,7 +9,7 @@ class TestBItem extends AdapterView{
   TestBItem(int type) : super(type,null);
 
   @override
-  Widget createView(Item bean) {
+  Widget createView(AdapterItem bean) {
     var b = bean as TestB;
     return Container(
       alignment:Alignment.center,

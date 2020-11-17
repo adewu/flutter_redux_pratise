@@ -21,7 +21,7 @@ abstract class BaseAdapter {
 
   BaseAdapter();
 
-  setNewData(List<Item> data){
+  setNewData(List<AdapterItem> data){
     if(_mData == null){
       _mData = Items();
     }
@@ -33,7 +33,16 @@ abstract class BaseAdapter {
     _refreshCompleter.complete();
   }
 
-  addData(List<Item> data){
+  addData(AdapterItem data){
+    if(_mData == null){
+      _mData = Items();
+    }
+    _mData.addData(data);
+    present += 1;
+    _loadCompleter.complete();
+  }
+
+  addAllData(List<AdapterItem> data){
     if(_mData == null){
       _mData = Items();
     }
@@ -71,8 +80,11 @@ abstract class BaseAdapter {
     return generateView(type, bean);
   }
 
-  Widget generateView(int type, Item bean) {
+  Widget generateView(int type, AdapterItem bean) {
     Widget widget;
+    if(_views == null){
+      return Container();
+    }
     _views.forEach((element) {
       if (element.type == type) {
         widget = element.createView(bean);
@@ -116,5 +128,5 @@ abstract class AdapterView {
 
   AdapterView(this.type,this.context);
 
-  Widget createView(Item bean);
+  Widget createView(AdapterItem bean);
 }

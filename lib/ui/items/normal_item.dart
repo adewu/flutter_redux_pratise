@@ -9,7 +9,7 @@ class TestAItem extends AdapterView {
   TestAItem(int type) : super(type,null);
 
   @override
-  Widget createView(Item bean) {
+  Widget createView(AdapterItem bean) {
     var b = bean as Normal;
     return Container(
         height: 110,

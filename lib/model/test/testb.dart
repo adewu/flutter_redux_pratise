@@ -1,6 +1,6 @@
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
-class TestB extends Item{
+class TestB extends AdapterItem{
 
   String text;
 
