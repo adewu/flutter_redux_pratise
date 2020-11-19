@@ -1,9 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Banner;
 import 'package:flutter_redux_pratise/config/color_config.dart';
-import 'package:flutter_redux_pratise/model/home/banner.dart';
 import 'package:flutter_redux_pratise/model/list/RecommendMainModel.dart';
-import 'package:flutter_redux_pratise/model/test/testa.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/base_adapter.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -56,21 +54,3 @@ class NormalBannerItemView extends AdapterView {
     );
   }
 }
-//Stack(
-//                children: <Widget>[
-//                  Positioned.fill(
-//                    child: Material(
-//                      borderRadius: BorderRadius.circular(80.0),
-//                      child: Image(
-//                        image: NetworkImage(
-//                          b.list[index].imagePath,
-//                        ),
-//                        fit: BoxFit.cover,
-//                      ),
-//                    ),
-//                  ),
-//                  Container(
-//                      alignment: Alignment.bottomCenter,
-//                      child: Text(b.list[index].title)),
-//                ],
-//              ),

@@ -1,9 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Banner;
 import 'package:flutter_redux_pratise/config/color_config.dart';
-import 'package:flutter_redux_pratise/model/home/banner.dart';
 import 'package:flutter_redux_pratise/model/list/RecommendMainModel.dart';
-import 'package:flutter_redux_pratise/model/test/testa.dart';
+import 'package:flutter_redux_pratise/ui/widgets/common/image/common_image.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/base_adapter.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -25,11 +24,8 @@ class BannerItemView extends AdapterView {
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
-                  child: Image(
-                    image: NetworkImage(
+                  child: Img(
                       b.galleryItems[index].cover ?? "",
-                    ),
-                    fit: BoxFit.cover,
                   ),
                 ),
                 Positioned.fill(

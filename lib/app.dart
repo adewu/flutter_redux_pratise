@@ -105,6 +105,7 @@ class _AppState extends State<App> {
     // ScreenUtil.init(context,width: 1080,height: 1920,allowFontScaling: false);
     return OKToast(
       child: MaterialApp(
+        // showPerformanceOverlay: true,
         title: 'Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

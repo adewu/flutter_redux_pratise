@@ -14,13 +14,17 @@ class RecommendMainModel {
 
   factory RecommendMainModel.fromJson(Map map) {
     var gitems = List<GalleryItem>();
-    map['galleryItems'].forEach((value) {
-      gitems.add(GalleryItem.fromJson(value));
-    });
+    if(map['galleryItems']!= null) {
+      map['galleryItems'].forEach((value) {
+        gitems.add(GalleryItem.fromJson(value));
+      });
+    }
     var mitems = List<Module>();
-    map['modules'].forEach((value) {
-      mitems.add(Module.fromJson(value));
-    });
+    if(map['modules']!= null) {
+      map['modules'].forEach((value) {
+        mitems.add(Module.fromJson(value));
+      });
+    }
     return RecommendMainModel(
         galleryItems: GalleryItems(galleryItems: gitems),
         textItems: map['textItems'],

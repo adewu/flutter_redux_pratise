@@ -8,6 +8,7 @@ Reducer<HomeState> buildReducer() {
     <Object, Reducer<HomeState>>{
       HomeAction.action: _onAction,
       HomeAction.pageChange : _pageChanged,
+      HomeAction.updateUI : _onUpdateUI,
     },
   );
 }
@@ -20,6 +21,11 @@ HomeState _pageChanged(HomeState state, Action action) {
 }
 
 HomeState _onAction(HomeState state, Action action) {
+  final HomeState newState = state.clone();
+  return newState;
+}
+
+HomeState _onUpdateUI(HomeState state, Action action) {
   final HomeState newState = state.clone();
   return newState;
 }

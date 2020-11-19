@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux_pratise/model/article_list/ArticleItemModel.dart';
 
 class Router {
 //  openWeb(BuildContext context, String url, String title) {

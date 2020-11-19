@@ -1,16 +1,16 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_redux_pratise/config/color_config.dart';
 
 typedef OnIndicatorSelected(int position);
 
-
 class TopTextIndicator extends StatefulWidget {
-
   TopTextIndicatorItems items;
   OnIndicatorSelected listener;
-  TopTextIndicator(this.items,this.listener);
+  int scrollPixels = 0;
+  int curPageIndex;
+
+  TopTextIndicator(this.items, this.listener,
+      {this.scrollPixels, this.curPageIndex});
 
   @override
   _TopTextIndicatorState createState() {
@@ -59,16 +59,26 @@ class _TopTextIndicatorState extends State<TopTextIndicator> {
     var list = List<Widget>();
     var i = 0;
     for (var value in widget.items.texts) {
-      list.add(_generateText(value,i));
+      list.add(_generateText(value, i));
       i += 1;
     }
     return list;
   }
 
-  Widget _generateText(String value,int position) {
+  _getColor(int position) {
+    if ((widget.curPageIndex ?? 0) == 0 && (widget.scrollPixels ?? 0) < 255) {
+      return ColorConfig.white;
+    }else{
+      return position == widget.items.selected
+          ? ColorConfig.black
+          : ColorConfig.xB2B2B2;
+    }
+  }
+
+  Widget _generateText(String value, int position) {
     return GestureDetector(
-      onTap: (){
-        if(widget.listener != null){
+      onTap: () {
+        if (widget.listener != null) {
           widget.listener(position);
         }
       },
@@ -77,7 +87,10 @@ class _TopTextIndicatorState extends State<TopTextIndicator> {
         child: Center(
           child: Text(
             value,
-            style: TextStyle(fontSize:position == widget.items.selected ? 21.0 : 17.0,color: position == widget.items.selected ? ColorConfig.black : ColorConfig.x9AE8C2),
+            style: TextStyle(
+                fontSize: position == widget.items.selected ? 21.0 : 17.0,
+                fontWeight:  position == widget.items.selected ? FontWeight.bold : FontWeight.normal,
+                color: _getColor(position)),
           ),
         ),
       ),
@@ -85,9 +98,9 @@ class _TopTextIndicatorState extends State<TopTextIndicator> {
   }
 }
 
-
-class TopTextIndicatorItems{
+class TopTextIndicatorItems {
   List<String> texts;
   int selected = 0;
-  TopTextIndicatorItems(this.texts,this.selected);
+
+  TopTextIndicatorItems(this.texts, this.selected);
 }

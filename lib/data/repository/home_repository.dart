@@ -26,4 +26,15 @@ class HomeRepository extends BaseRepository{
       return Future.error(response.data.message);
     }
   }
+
+  Future<BaseModel> requestHomeNovelList() async {
+    var m = Map<String,dynamic>();
+    BaseModel response =
+    await request(Api.homeNovel, m, isContentTypeJson: true);
+    if (response != null && response.code == 1) {
+      return response;
+    } else {
+      return Future.error(response.data.message);
+    }
+  }
 }

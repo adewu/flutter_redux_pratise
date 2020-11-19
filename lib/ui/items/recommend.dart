@@ -3,14 +3,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_redux_pratise/config/color_config.dart';
 import 'package:flutter_redux_pratise/model/list/RecommendMainModel.dart';
+import 'package:flutter_redux_pratise/ui/widgets/common/card/item_card.dart';
+import 'package:flutter_redux_pratise/ui/widgets/common/image/common_image.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/base_adapter.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
 class RecommendGridItem extends AdapterView {
   RecommendGridItem(int type, BuildContext context) : super(type, context);
 
-  Widget creteGridView(Module model) {
-    var gridView = GridView.builder(
+  Widget createModules(Module model) {
+    if (model.moduleType == 1 && model.uiType == 4) {
+      return IrregularGrid(model.itemArray);
+    } else if (model.moduleType == 2 && model.uiType == 4) {
+      //横向List
+      return generateHorList(context, model.items);
+    } else if (model.moduleType == 2 && model.uiType == 1) {
+      //广告
+      return ListImgAdCard(model.items[0]);
+    } else if (model.moduleType == 1 && model.uiType == 3) {
+      //三列
+      return MediaQuery.removePadding(
+          context: context,
+          removeTop: true,
+          child: generateThreeCols(model.itemArray));
+    } else if (model.moduleType == 4 && model.uiType == 1) {
+      //动画影视list
+      return generateHorAnimationList(context, model.items);
+    } else if (model.moduleType == 6 && model.uiType == 1) {
+      //小说三列
+      return generateNovelThreeCols(model.itemArray);
+    } else {
+      //两列grid
+      return MediaQuery.removePadding(
+          context: context, removeTop: true, child: generateTwoCols(model));
+    }
+  }
+
+  Widget generateTwoCols(Module model) {
+    return GridView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -24,29 +54,25 @@ class RecommendGridItem extends AdapterView {
             model.itemArray.isNotEmpty) {
           itemModel = model.itemArray[index][0];
         }
-        return createRecommendGridItemView(itemModel, 170, 100);
+        return CommonLandScapeCard(itemModel, 170, 100);
       },
       itemCount: model.itemCount,
     );
-    if (model.moduleType == 1 && model.uiType == 4) {
-      return uiType4(model.itemArray);
-    } else if (model.moduleType == 2 && model.uiType == 4) {
-      //横向List
-      return generateHorList(context, model.items);
-    }else if(model.moduleType == 2 && model.uiType == 1){
-      //广告
-      return generateAD(model.items);
-    }else if(model.moduleType == 1 && model.uiType == 3){
-      //三列
-      return MediaQuery.removePadding(
-          context: context, removeTop: true, child: generateThreeCols(model.itemArray));
-    }else if(model.moduleType == 4 && model.uiType == 1) {
-      //动画影视list
-      return generateHorAnimationList(context, model.items);
-    }else {
-      return MediaQuery.removePadding(
-          context: context, removeTop: true, child: gridView);
-    }
+  }
+
+  Widget generateNovelThreeCols(List<List<Item>> list) {
+    var gridView = GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, crossAxisSpacing: 5, childAspectRatio: 0.68),
+      itemBuilder: (context, index) {
+        Item itemModel = list[index][0];
+        return CommonVerticalCard(itemModel, isUseInGridView: true);
+      },
+      itemCount: list.length,
+    );
+    return gridView;
   }
 
   Widget generateThreeCols(List<List<Item>> list) {
@@ -57,34 +83,13 @@ class RecommendGridItem extends AdapterView {
           crossAxisCount: 3, crossAxisSpacing: 5, childAspectRatio: 0.68),
       itemBuilder: (context, index) {
         Item itemModel = list[index][0];
-        return generateCard(itemModel,isUseInGridView: true);
+        return CommonVerticalCard(itemModel, isUseInGridView: true);
       },
       itemCount: list.length,
     );
     return gridView;
   }
 
-  Widget generateAD(List<Item> list) {
-    return Container(
-      height: 120,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          PhysicalModel(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(8),
-            clipBehavior: Clip.antiAlias,
-            child: Image(
-              image: NetworkImage(
-                list[0].cover,
-              ),
-              fit: BoxFit.fill,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
   //横向list
   Widget generateHorList(BuildContext context, List<Item> list) {
     return Container(
@@ -95,13 +100,12 @@ class RecommendGridItem extends AdapterView {
           itemCount: list.length,
           itemBuilder: (context, position) {
             return Padding(
-              padding: const EdgeInsets.only(left : 10.0,),
+              padding: const EdgeInsets.only(
+                left: 10.0,
+              ),
               child: Container(
-                child: Image(
-                  image: NetworkImage(
-                    list[position].cover ?? "",
-                  ),
-                  fit: BoxFit.cover,
+                child: Img(
+                  list[position].cover ?? "",
                 ),
               ),
             );
@@ -112,7 +116,7 @@ class RecommendGridItem extends AdapterView {
   //横向动画影视list
   Widget generateHorAnimationList(BuildContext context, List<Item> list) {
     return Padding(
-      padding: const EdgeInsets.only(bottom:8.0),
+      padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
         height: 200,
         child: ListView.builder(
@@ -121,13 +125,12 @@ class RecommendGridItem extends AdapterView {
             itemCount: list.length,
             itemBuilder: (context, position) {
               return Padding(
-                padding: const EdgeInsets.only(left : 10.0,),
+                padding: const EdgeInsets.only(
+                  left: 10.0,
+                ),
                 child: Container(
-                  child: Image(
-                    image: NetworkImage(
-                      list[position].cover ?? "",
-                    ),
-                    fit: BoxFit.scaleDown,
+                  child: Img(
+                    list[position].cover ?? "",
                   ),
                 ),
               );
@@ -149,15 +152,6 @@ class RecommendGridItem extends AdapterView {
             height: 50,
             child: Row(
               children: <Widget>[
-                Container(
-                  height: 50,
-                  child: Image(
-                    image: NetworkImage(
-                      model.moduleInfo.bgCover,
-                    ),
-                    fit: BoxFit.fill,
-                  ),
-                ),
                 Text(
                   model.moduleInfo.title,
                   style: TextStyle(
@@ -169,66 +163,22 @@ class RecommendGridItem extends AdapterView {
             ),
           ),
         ),
-        creteGridView(model),
+        createModules(model),
       ],
     );
   }
 
-  Widget createRecommendGridItemView(Item itemModel, double imageWidth,
-      double imageHeight) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Center(
-            child: Container(
-              height: imageHeight,
-              width: imageWidth,
-              child: PhysicalModel(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
-                clipBehavior: Clip.antiAlias,
-                child: Image(
-                  image: NetworkImage(
-                    itemModel.cover,
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, top: 2.0),
-            child: Text(
-              itemModel.title ?? "",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, top: 4.0),
-            child: Text(
-              itemModel.subTitle ?? "",
-              style: TextStyle(fontSize: 13, color: ColorConfig.xB2B2B2),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget uiType4(List<List<Item>> list) {
+  //不规则网格
+  Widget IrregularGrid(List<List<Item>> list) {
     return Column(
       children: <Widget>[
         Row(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: createRecommendGridItemView(list[0][0], 250, 140),
+              child: CommonLandScapeCard(list[0][0], 250, 140),
             ),
-            generateCard(list[1][0]),
+            CommonVerticalCard(list[1][0]),
           ],
         ),
         Padding(
@@ -236,80 +186,13 @@ class RecommendGridItem extends AdapterView {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              generateCard(list[2][0]),
-              generateCard(list[3][0]),
-              generateCard(list[4][0]),
+              CommonVerticalCard(list[2][0]),
+              CommonVerticalCard(list[3][0]),
+              CommonVerticalCard(list[4][0]),
             ],
           ),
         ),
       ],
-    );
-  }
-
-  //竖
-  Widget generateCard(Item itemModel,{bool isUseInGridView}) {
-
-    _getPadding(){
-      if(isUseInGridView == null){
-        isUseInGridView = false;
-      }
-      if(isUseInGridView){
-       return const EdgeInsets.only(top: 2.0,left: 10.0);
-      }else{
-        return const EdgeInsets.only(top: 2.0);
-      }
-    }
-
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Center(
-            child: Container(
-              height: 140,
-              width: 110,
-              child: PhysicalModel(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
-                clipBehavior: Clip.antiAlias,
-                child: Image(
-                  image: NetworkImage(
-                    itemModel.cover,
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: _getPadding(),
-            child: Container(
-              width: 110,
-              child: Text(
-                itemModel.title ?? "",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: _getPadding(),
-            child: Container(
-              width: 110,
-              child: Text(
-                itemModel.subTitle ?? "",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 13, color: ColorConfig.xB2B2B2),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

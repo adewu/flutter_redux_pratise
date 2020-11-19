@@ -7,7 +7,7 @@ class PageRouteName {
 
   //首页4个tab页面
   static const String HOME_RECOMMEND = "homeRecommendPage";
-  static const String HOME_VIP = "homeVIPPage";
+  static const String HOME_NOVEL = "homeVIPPage";
   static const String HOME_SUBSCRIPTION = "homeSubscriptionPage";
   static const String HOME_RANK = "homeRankPage";
 

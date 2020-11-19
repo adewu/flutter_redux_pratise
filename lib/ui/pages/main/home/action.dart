@@ -1,6 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum HomeAction { action , loadMore,refresh,pageChange}
+enum HomeAction { action , loadMore,refresh,pageChange,listScroll,updateUI}
 
 class HomeActionCreator {
   static Action onAction() {
@@ -17,5 +17,13 @@ class HomeActionCreator {
 
   static Action onRefresh() {
     return Action(HomeAction.refresh);
+  }
+
+  static Action onListScroll(int pay) {
+    return Action(HomeAction.listScroll,payload: pay);
+  }
+
+  static Action onUpdateUI() {
+    return const Action(HomeAction.updateUI);
   }
 }

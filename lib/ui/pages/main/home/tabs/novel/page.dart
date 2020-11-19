@@ -1,24 +1,24 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter_redux_pratise/ui/pages/main/home/wrapper.dart';
 
 import 'effect.dart';
 import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';
+import 'wrapper.dart';
 
-class HomePage extends Page<HomeState, Map<String, dynamic>> {
-  HomePage()
+class NovelPage extends Page<NovelState, Map<String, dynamic>> {
+  NovelPage()
       : super(
-            wrapper : HomePageWrapper,
+            wrapper:HomeNovelPageWrapper,
             initState: initState,
             effect: buildEffect(),
             reducer: buildReducer(),
             view: buildView,
-            dependencies: Dependencies<HomeState>(
+            dependencies: Dependencies<NovelState>(
                 adapter: null,
-                slots: <String, Dependent<HomeState>>{
+                slots: <String, Dependent<NovelState>>{
                 }),
-            middleware: <Middleware<HomeState>>[
+            middleware: <Middleware<NovelState>>[
             ],);
 
 }

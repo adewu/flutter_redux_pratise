@@ -5,24 +5,20 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/base_adapter.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
+import 'package:flutter_redux_pratise/utils/log_util.dart';
 
-/**
- * 1.set data
- * 2.header
- * 3.footer
- * 4.multiple view
- *
- */
 
 typedef LoadMoreListener(int present);
 typedef RefreshCallback();
+typedef ScrollListener(int pixel);
 
 class SmartListView<T> extends StatefulWidget {
   BaseAdapter adapter;
   final LoadMoreListener loadMoreListener;
   final RefreshCallback refreshListener;
+  final ScrollListener scrollListener;
 
-  SmartListView({this.refreshListener, this.loadMoreListener, this.adapter});
+  SmartListView({this.refreshListener, this.loadMoreListener,this.adapter,this.scrollListener});
 
   @override
   State<StatefulWidget> createState() {
@@ -31,8 +27,14 @@ class SmartListView<T> extends StatefulWidget {
 }
 
 class SmartListViewState extends State<SmartListView> {
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
+    _scrollController.addListener(() {
+      if(widget.scrollListener != null){
+        widget.scrollListener(_scrollController.position.pixels.toInt());
+      }
+    });
     super.initState();
   }
 
@@ -51,12 +53,11 @@ class SmartListViewState extends State<SmartListView> {
   @override
   Widget build(BuildContext context) {
     return EasyRefresh(
-      header: ClassicalHeader(),
+      header: MaterialHeader(),
       footer: ClassicalFooter(),
       onRefresh: () async {
         refresh();
         await widget.adapter.refresh().then((value) {
-          print("onRefresh: () async");
           widget.adapter.ezRefreshCtrl.finishRefresh(success: true);
         });
       },
@@ -77,13 +78,14 @@ class SmartListViewState extends State<SmartListView> {
       enableControlFinishLoad: true,
       child: ListView.builder(
         shrinkWrap: true,
+        controller: _scrollController,
         itemCount: widget.adapter.getDataSize(),
         itemBuilder: (context, position) {
-          print("position" +
-              position.toString() +
-              "------" +
-              "widget.adapter.getDataSize()" +
-              widget.adapter.getDataSize().toString());
+          // print("position" +
+          //     position.toString() +
+          //     "------" +
+          //     "widget.adapter.getDataSize()" +
+          //     widget.adapter.getDataSize().toString());
           return widget.adapter.getWidgetByPosition(position);
         },
       ),

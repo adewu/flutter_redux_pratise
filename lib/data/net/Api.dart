@@ -15,6 +15,10 @@ class Api {
   // static final String boutiqueList = BASE_URL + "comic/boutiqueListNew";
   static final String boutiqueList = BASE_URL + "comic/getDetectListV4_5";
 
+  //首页 小说
+  static final String homeNovel = BASE_URL + "novel/recommend/getNovelRecommendList";
+
+
   //专题
   static final String special = BASE_URL + "comic/special";
 

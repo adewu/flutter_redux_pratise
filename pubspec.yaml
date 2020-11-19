@@ -52,7 +52,7 @@ dependencies:
   logger: ^0.9.4
 
   #https://pub.dev/packages/cached_network_image#-installing-tab-
-  # cached_network_image: ^1.1.1
+  cached_network_image: ^2.1.0
 
   #https://pub.dev/packages/json_annotation/versions
   json_annotation: ^3.0.1
