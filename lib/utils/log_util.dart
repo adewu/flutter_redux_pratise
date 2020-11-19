@@ -10,7 +10,8 @@ class Log {
 
 
   static void info(dynamic message) {
-    logger.i(message);
+    // logger.i(message);
+    print(message);
   }
 
 

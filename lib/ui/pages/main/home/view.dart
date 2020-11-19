@@ -14,32 +14,38 @@ import 'state.dart';
 Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
   _createView() {
     return Container(
-      child: Column(
+      child: Stack(
         children: <Widget>[
-          Container(
-              height: 80,
-              child: Stack(
-                children: <Widget>[
-                  TopTextIndicator(state.indicators,(pos){
-
-                  }),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 40,),
-                        child: IconButton(icon: Icon(Icons.search), onPressed: null),
-                      ),
-                    ],
-                  ),
-                ],
-              )),
           Expanded(
             child: Container(
               child: PageView(
                 controller: state.pageController,
                 children: state.pages,
+                onPageChanged: (index){
+                  dispatch(HomeActionCreator.onPageChange(index));
+                },
               ),
+            ),
+          ),
+          Container(
+            color: Colors.transparent,
+            height: 80,
+            child: Stack(
+              children: <Widget>[
+                TopTextIndicator(state.indicators, (pos) {}),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 40,
+                      ),
+                      child:
+                          IconButton(icon: Icon(Icons.search), onPressed: null),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ],

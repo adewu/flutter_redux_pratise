@@ -1,13 +1,13 @@
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/base_adapter.dart';
 import 'package:flutter_redux_pratise/ui/widgets/common/listview/items.dart';
 
-class HomeAdapter extends BaseAdapter{
+class RecommendAdapter extends BaseAdapter{
 
-  HomeAdapter() : super();
+  RecommendAdapter() : super();
 
   @override
   bool needLoadMore() {
-    throw true;
+    return false;
   }
 
 }

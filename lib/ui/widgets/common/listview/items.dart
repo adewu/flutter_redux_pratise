@@ -1,9 +1,9 @@
 class Items<T> {
   int typeCount;
   List<int> types;
-  List<Item> datas;
+  List<AdapterItem> datas;
 
-  List<Item> get data{
+  List<AdapterItem> get data{
     if(datas == null){
       datas = List();
     }
@@ -12,18 +12,18 @@ class Items<T> {
 
   Items({this.types, this.datas});
 
-  void setNewData(List<Item> data){
+  void setNewData(List<AdapterItem> data){
     datas = data;
   }
 
-  void addAllData(List<Item> data){
+  void addAllData(List<AdapterItem> data){
     if(datas == null){
        datas = List();
     }
     datas.addAll(data);
   }
 
-  void addData(Item data){
+  void addData(AdapterItem data){
     if(datas == null){
        datas = List();
     }
@@ -32,9 +32,9 @@ class Items<T> {
 
 }
 
-abstract class Item {
+abstract class AdapterItem {
   int type;
 
-  Item(this.type);
+  AdapterItem(this.type);
 
 }
