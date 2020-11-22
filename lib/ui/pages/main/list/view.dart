@@ -6,27 +6,54 @@ import 'package:flutter_redux_pratise/data/repository/home_repository.dart';
 import 'package:flutter_redux_pratise/ui/pages/main/list/ListItemView.dart';
 import 'state.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import '../../../../model/list/BaseModel.dart';
+import 'action.dart';
 import '../../../../model/list/RankingItemModel.dart';
-import '../../../../data/net/Api.dart';
-import '../../../../api/RequestRoute.dart';
 
 Widget buildView(
     HomeListState state, Dispatch dispatch, ViewService viewService) {
   return Container(
     color: Colors.blue,
-    child: PageContentView(),
+    child: PageContentView(dispatch, viewService, state),
   );
 }
 
 class PageContentView extends StatefulWidget {
+  Dispatch dispatch;
+  ViewService viewService;
+  HomeListState state;
+
+  PageContentView(this.dispatch, this.viewService, this.state);
+
+  initState() {}
+
   @override
-  _PageContentViewState createState() => _PageContentViewState();
+  _PageContentViewState createState() =>
+      _PageContentViewState(this.dispatch, this.viewService, this.state);
 }
 
 class _PageContentViewState extends State<PageContentView> {
-  List<RankingItemModel> items = [];
   var controller = EasyRefreshController();
+  Dispatch dispatch;
+  ViewService viewService;
+  HomeListState state;
+
+  _PageContentViewState(this.dispatch, this.viewService, this.state);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('调用初始化');
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.finishRefresh();
+    super.dispose();
+
+    print('销毁事件');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,30 +73,19 @@ class _PageContentViewState extends State<PageContentView> {
           backgroundColor: Colors.blueAccent,
         ),
         onRefresh: () async {
-          request();
-          return;
+          dispatch(HomeListActionCreator.onRefresh());
         },
         child: creteGridView(),
       ),
     );
   }
 
-  void request() {
-    print('开启请求');
-    HomeRepository().requestCategoryList().then((baseModel) {
-      controller.finishRefresh(success: true);
-      RankingMainModel mainModel =
-      RankingMainModel.fromJson(baseModel.data.returnData);
-      setState(() {
-        items = mainModel.rankingList;
-      });
-    }, onError: (e) {
-      controller.finishRefresh(success: true);
-      print('请求错误$e');
-    });
-  }
-
   GridView creteGridView() {
+    print('创建 creteGridView');
+    List<RankingItemModel> list = [];
+    if (state.rankingMainModel.rankingList != null) {
+      list = state.rankingMainModel.rankingList;
+    }
     var gridView = GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
@@ -77,12 +93,11 @@ class _PageContentViewState extends State<PageContentView> {
           mainAxisSpacing: 0,
           childAspectRatio: 1),
       itemBuilder: (context, index) {
-        RankingItemModel itemModel = items[index];
+        RankingItemModel itemModel = list[index];
         ListItemView itemView = ListItemView(itemModel);
         return itemView;
       },
-      itemCount: items.length,
-
+      itemCount: list.length,
     );
     return gridView;
   }
