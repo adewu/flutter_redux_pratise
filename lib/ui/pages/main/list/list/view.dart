@@ -3,11 +3,11 @@ import 'dart:ui';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux_pratise/data/repository/home_repository.dart';
-import 'package:flutter_redux_pratise/ui/pages/main/list/ListItemView.dart';
+import 'package:flutter_redux_pratise/ui/pages/main/list/list/ListItemView.dart';
 import 'state.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'action.dart';
-import '../../../../model/list/RankingItemModel.dart';
+import '../../../../../model/list/RankingItemModel.dart';
 
 Widget buildView(
     HomeListState state, Dispatch dispatch, ViewService viewService) {
@@ -89,7 +89,9 @@ class _PageContentViewState extends State<PageContentView> {
           childAspectRatio: 0.86),
       itemBuilder: (context, index) {
         RankingItemModel itemModel = list[index];
-        ListItemView itemView = ListItemView(itemModel);
+        ListItemView itemView = ListItemView(itemModel, (model) {
+          dispatch(HomeListActionCreator.selectItem(model));
+        });
         return itemView;
       },
       itemCount: list.length,

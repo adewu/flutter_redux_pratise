@@ -7,10 +7,12 @@ import 'state.dart';
 Effect<HomeListState> buildEffect() {
   return combineEffects(<Object, Effect<HomeListState>>{
     HomeListAction.refresh: _onRefresh,
+    HomeListAction.selectItem:_selectItem,
+
   });
 }
 
-void _onRefresh(Action action, Context<HomeListState> ctx) {
+void _onRefresh(Action action, Context<HomeListState> ctx) async {
   print('通过Action 调用事件');
   print('开启请求');
   HomeRepository().requestCategoryList().then((baseModel) {
@@ -21,4 +23,8 @@ void _onRefresh(Action action, Context<HomeListState> ctx) {
   }, onError: (e) {
     print('请求错误$e');
   });
+}
+
+void _selectItem(Action action, Context<HomeListState> ctx) {
+  print('选择条目');
 }

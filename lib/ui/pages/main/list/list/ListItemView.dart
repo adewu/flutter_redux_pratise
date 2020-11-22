@@ -8,7 +8,9 @@ import 'package:flutter_redux_pratise/model/list/RankingItemModel.dart';
 class ListItemView extends StatelessWidget {
   RankingItemModel rankingItemModel;
 
-  ListItemView(this.rankingItemModel);
+  Function(RankingItemModel) onPress;
+
+  ListItemView(this.rankingItemModel, this.onPress);
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +46,7 @@ class ListItemView extends StatelessWidget {
               child: Center(
                 child: Text(
                   rankingItemModel.sortName,
-                  style:
-                      TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 14),
                 ),
               ),
               height: 30,
