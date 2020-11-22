@@ -13,5 +13,5 @@ class HomeListState implements Cloneable<HomeListState> {
 }
 
 HomeListState initState(Map<String, dynamic> args) {
-  return HomeListState()..rankingMainModel = RankingMainModel();
+  return HomeListState()..rankingMainModel = RankingMainModel(rankingList: []);
 }

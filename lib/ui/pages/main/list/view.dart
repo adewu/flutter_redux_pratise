@@ -51,7 +51,6 @@ class _PageContentViewState extends State<PageContentView> {
     // TODO: implement dispose
     controller.finishRefresh();
     super.dispose();
-
     print('销毁事件');
   }
 
@@ -69,11 +68,10 @@ class _PageContentViewState extends State<PageContentView> {
         enableControlFinishLoad: true,
         enableControlFinishRefresh: true,
         controller: controller,
-        header: TaurusHeader(
-          backgroundColor: Colors.blueAccent,
-        ),
+        header: MaterialHeader(),
         onRefresh: () async {
-          dispatch(HomeListActionCreator.onRefresh());
+          await dispatch(HomeListActionCreator.onRefresh());
+          controller.finishRefresh();
         },
         child: creteGridView(),
       ),
@@ -82,16 +80,13 @@ class _PageContentViewState extends State<PageContentView> {
 
   GridView creteGridView() {
     print('创建 creteGridView');
-    List<RankingItemModel> list = [];
-    if (state.rankingMainModel.rankingList != null) {
-      list = state.rankingMainModel.rankingList;
-    }
+    List<RankingItemModel> list = state.rankingMainModel.rankingList;
     var gridView = GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           crossAxisSpacing: 0,
           mainAxisSpacing: 0,
-          childAspectRatio: 1),
+          childAspectRatio: 0.86),
       itemBuilder: (context, index) {
         RankingItemModel itemModel = list[index];
         ListItemView itemView = ListItemView(itemModel);

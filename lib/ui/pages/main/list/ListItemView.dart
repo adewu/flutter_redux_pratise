@@ -37,7 +37,7 @@ class ListItemView extends StatelessWidget {
               ),
               top: 0,
               left: 0,
-              bottom: 25,
+              bottom: 30,
               right: 0,
             ),
             Positioned(
@@ -45,10 +45,10 @@ class ListItemView extends StatelessWidget {
                 child: Text(
                   rankingItemModel.sortName,
                   style:
-                      TextStyle(fontSize: 12),
+                      TextStyle(fontSize: 14),
                 ),
               ),
-              height: 25,
+              height: 30,
               left: 0,
               bottom: 0,
               right: 0,
