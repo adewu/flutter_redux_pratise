@@ -24,7 +24,6 @@ class PageContentView extends StatefulWidget {
 
   PageContentView(this.dispatch, this.viewService, this.state);
 
-  initState() {}
 
   @override
   _PageContentViewState createState() =>
@@ -44,6 +43,7 @@ class _PageContentViewState extends State<PageContentView> {
     // TODO: implement initState
     super.initState();
     print('调用初始化');
+    dispatch(HomeListActionCreator.onRefresh());
   }
 
   @override
@@ -62,13 +62,15 @@ class _PageContentViewState extends State<PageContentView> {
           '分类',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.orangeAccent,
       ),
       body: EasyRefresh(
         enableControlFinishLoad: true,
         enableControlFinishRefresh: true,
         controller: controller,
-        header: MaterialHeader(),
+        header: DeliveryHeader(
+          backgroundColor: Colors.green,
+        ),
         onRefresh: () async {
           await dispatch(HomeListActionCreator.onRefresh());
           controller.finishRefresh();
@@ -80,7 +82,9 @@ class _PageContentViewState extends State<PageContentView> {
 
   GridView creteGridView() {
     print('创建 creteGridView');
+
     List<RankingItemModel> list = state.rankingMainModel.rankingList;
+
     var gridView = GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
@@ -89,8 +93,8 @@ class _PageContentViewState extends State<PageContentView> {
           childAspectRatio: 0.86),
       itemBuilder: (context, index) {
         RankingItemModel itemModel = list[index];
-        ListItemView itemView = ListItemView(itemModel, (model) {
-          dispatch(HomeListActionCreator.selectItem(model));
+        ListItemView itemView = ListItemView(itemModel, () {
+          dispatch(HomeListActionCreator.selectItem(itemModel));
         });
         return itemView;
       },

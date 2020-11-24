@@ -1,34 +1,86 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 import 'action.dart';
 import 'state.dart';
 
-Widget buildView(MainState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    ListDetailState state, Dispatch dispatch, ViewService viewService) {
   SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-  return Scaffold(
-    body: PageView(
-      physics: NeverScrollableScrollPhysics(),
-      controller: state.pageController,
-      children: state.pages,
-    ),
-    bottomNavigationBar: BottomNavigationBar(
-        // fixedColor: Colors.white,
-        //底部导航栏按钮选中时的颜色
-        // type: BottomNavigationBarType.fixed,
-        //底部导航栏的适配，当item多的时候都展示出来
-        currentIndex: state.currentPageIndex,
-        onTap: (index) {
-            state.pageController.jumpToPage(index);
-          dispatch(MainActionCreator.onSwitchTabAction(index));
-        },
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.explore,size: 23,), title: Text("发现",style: TextStyle(fontSize: 10),)),
-          BottomNavigationBarItem(icon: Icon(Icons.book,size: 23,), title: Text("书架",style: TextStyle(fontSize: 10),),),
-          BottomNavigationBarItem(icon: Icon(Icons.person,size: 23,), title: Text("我的",style: TextStyle(fontSize: 10),))
-        ],
-      ),
-  );
+  return PageContentView(state, dispatch, viewService);
+}
 
+class PageContentView extends StatefulWidget {
+  Dispatch dispatch;
+  ViewService viewService;
+  ListDetailState state;
+
+  PageContentView(this.state, this.dispatch, this.viewService);
+
+  initState() {}
+
+  @override
+  _PageContentViewState createState() =>
+      _PageContentViewState(this.dispatch, this.viewService, this.state);
+}
+
+class _PageContentViewState extends State<PageContentView> {
+  var controller = EasyRefreshController();
+  Dispatch dispatch;
+  ViewService viewService;
+  ListDetailState state;
+
+  _PageContentViewState(this.dispatch, this.viewService, this.state);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('调用初始化');
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.finishRefresh();
+    super.dispose();
+    print('销毁事件');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          '详情页',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.orangeAccent,
+      ),
+      body: EasyRefresh(
+        enableControlFinishLoad: true,
+        enableControlFinishRefresh: true,
+        controller: controller,
+        header: DeliveryHeader(
+          backgroundColor: Colors.green,
+        ),
+        onRefresh: () async {},
+        child: createListView(),
+      ),
+    );
+  }
+
+  createListView() {
+    ListView listView = ListView.builder(
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('详情页'),
+        );
+      },
+      itemCount: 100,
+    );
+    return listView;
+  }
 }

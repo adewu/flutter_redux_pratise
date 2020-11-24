@@ -11,5 +11,8 @@ class PageRouteName {
   static const String HOME_SUBSCRIPTION = "homeSubscriptionPage";
   static const String HOME_RANK = "homeRankPage";
 
+  //分类详情页面
+  static const String List_Detail = "listDetail";
+
 
 }

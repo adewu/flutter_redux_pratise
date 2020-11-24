@@ -3,17 +3,16 @@ import 'package:fish_redux/fish_redux.dart';
 import 'action.dart';
 import 'state.dart';
 
-Reducer<MainState> buildReducer() {
+Reducer<ListDetailState> buildReducer() {
   return asReducer(
-    <Object, Reducer<MainState>>{
-      MainAction.switchTab: _onSwitchTabAction,
+    <Object, Reducer<ListDetailState>>{
+      ListDetailAction.refresh: _onRefreshAction,
     },
   );
 }
 
-MainState _onSwitchTabAction(MainState state, Action action) {
+ListDetailState _onRefreshAction(ListDetailState state, Action action) {
   state.currentPageIndex = action.payload;
-
-  final MainState newState = state.clone();
+  final ListDetailState newState = state.clone();
   return newState;
 }

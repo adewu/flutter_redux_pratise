@@ -12,7 +12,7 @@ Reducer<HomeListState> buildReducer() {
 }
 
 HomeListState _updateUi(HomeListState state, Action action) {
-  print('调用UI更新的方法');
+  print('HomeListState _updateUi调用UI更新的方法');
   final HomeListState newState = state.clone();
   return newState;
 }

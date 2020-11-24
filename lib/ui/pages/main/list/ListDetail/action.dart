@@ -1,15 +1,14 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum MainAction { switchTab,action }
+enum ListDetailAction {
+  refresh,
+  action
+}
 
-class MainActionCreator {
+class ListDetailActionCreator {
 
-  static Action onSwitchTabAction(int index) {
-    return Action(MainAction.switchTab,payload: index);
-  }
-
-  static Action onAction() {
-    return const Action(MainAction.action);
+  static Action onRefresh() {
+    return const Action(ListDetailAction.refresh);
   }
 
 }

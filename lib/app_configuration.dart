@@ -5,6 +5,7 @@ import 'package:flutter_redux_pratise/ui/pages/main/home/tabs/novel/page.dart';
 import 'package:flutter_redux_pratise/ui/pages/main/home/tabs/rank/page.dart';
 import 'package:flutter_redux_pratise/ui/pages/main/home/tabs/recommend/page.dart';
 import 'package:flutter_redux_pratise/ui/pages/main/home/tabs/subscription/page.dart';
+import 'package:flutter_redux_pratise/ui/pages/main/list/ListDetail/page.dart';
 import 'package:flutter_redux_pratise/ui/pages/main/list/list/page.dart';
 import 'package:flutter_redux_pratise/ui/pages/main/page.dart';
 import 'package:flutter_redux_pratise/ui/pages/main/user/page.dart';
@@ -28,6 +29,8 @@ class AppConfiguration{
    PageRouteName.HOME_NOVEL: NovelPage(),
    PageRouteName.HOME_SUBSCRIPTION: SubscriptionPage(),
    PageRouteName.HOME_RANK: RankPage(),
+   PageRouteName.List_Detail:ListDetailPage(),
+
  };
 
 

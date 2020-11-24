@@ -12,12 +12,14 @@ class HomeListActionCreator {
   static Action onRefresh() {
     return const Action(HomeListAction.refresh);
   }
+
   static Action onUpdateUi() {
-    print('调用ui更新');
+    print('HomeListActionCreator 调用ui更新');
     return const Action(HomeListAction.updateUi);
   }
+
   static Action selectItem(dynamic obj) {
-    print('调用xuanzhong tiaomu ');
+    print('HomeListActionCreator 调用选中条目');
     return Action(HomeListAction.selectItem,payload: obj);
   }
 }
