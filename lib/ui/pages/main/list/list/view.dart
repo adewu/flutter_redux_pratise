@@ -2,12 +2,12 @@ import 'dart:ui';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux_pratise/data/repository/home_repository.dart';
+import 'package:flutter_redux_pratise/model/list/RankingItemModel.dart';
 import 'package:flutter_redux_pratise/ui/pages/main/list/list/ListItemView.dart';
 import 'state.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'action.dart';
-import '../../../../../model/list/RankingItemModel.dart';
+
 
 Widget buildView(
     HomeListState state, Dispatch dispatch, ViewService viewService) {
@@ -62,7 +62,7 @@ class _PageContentViewState extends State<PageContentView> {
           '分类',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.orangeAccent,
+        backgroundColor: Colors.green,
       ),
       body: EasyRefresh(
         enableControlFinishLoad: true,
@@ -72,8 +72,10 @@ class _PageContentViewState extends State<PageContentView> {
           backgroundColor: Colors.green,
         ),
         onRefresh: () async {
+          print('开始刷新');
           await dispatch(HomeListActionCreator.onRefresh());
           controller.finishRefresh();
+          print('结束刷新');
         },
         child: creteGridView(),
       ),
