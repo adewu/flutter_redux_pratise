@@ -14,7 +14,7 @@ Widget buildView(MainState state, Dispatch dispatch, ViewService viewService) {
       children: state.pages,
     ),
     bottomNavigationBar: Container(
-      height: 50,
+      // height: 150,
       child: BottomNavigationBar(
         fixedColor: Colors.green,
         //底部导航栏按钮选中时的颜色
