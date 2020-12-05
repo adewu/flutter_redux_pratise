@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Page;
+import 'package:flutter_redux_pratise/ui/pages/comic/detail/page.dart';
 import 'package:flutter_redux_pratise/ui/pages/main/home/page.dart';
 import 'package:flutter_redux_pratise/ui/pages/main/home/tabs/novel/page.dart';
 import 'package:flutter_redux_pratise/ui/pages/main/home/tabs/rank/page.dart';
@@ -30,6 +31,7 @@ class AppConfiguration{
    PageRouteName.HOME_SUBSCRIPTION: SubscriptionPage(),
    PageRouteName.HOME_RANK: RankPage(),
    PageRouteName.List_Detail:ListDetailPage(),
+   PageRouteName.COMIC_DETAIL:ComicDetailPage(),
 
  };
 

@@ -14,5 +14,6 @@ class PageRouteName {
   //分类详情页面
   static const String List_Detail = "listDetail";
 
+  static const String COMIC_DETAIL = "comicDetail";
 
 }

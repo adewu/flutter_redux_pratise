@@ -40,10 +40,10 @@ class Api {
   //猜你喜欢
   static final String guessLike = BASE_URL + "comic/guessLike";
 
-  //详情(基本)
+  //详情(基本) comicid
   static final String detailStatic = BASE_URL + "comic/detail_static_new";
 
-  //详情(实时
+  //详情(实时comicid
   static final String detailRealtime = BASE_URL + "comic/detail_realtime";
 
   //评论
