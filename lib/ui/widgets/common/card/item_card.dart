@@ -36,17 +36,10 @@ class CommonVerticalCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Center(
-              child: Container(
+              child: Img(
+                itemModel.cover,
                 height: 140,
                 width: 110,
-                child: PhysicalModel(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(8),
-                  clipBehavior: Clip.antiAlias,
-                  child: Img(
-                      itemModel.cover,
-                  ),
-                ),
               ),
             ),
             Padding(
@@ -104,17 +97,11 @@ class CommonLandScapeCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Center(
-              child: Container(
+              child: Img(
+                  itemModel.cover,
                 height: imageHeight,
                 width: imageWidth,
-                child: PhysicalModel(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(8),
-                  clipBehavior: Clip.antiAlias,
-                  child: Img(
-                      itemModel.cover,
-                  ),
-                ),
+                radius: 8,
               ),
             ),
             Padding(
@@ -155,17 +142,13 @@ class ListImgAdCard extends StatelessWidget {
             arguments: args);
       },
       child: Container(
-        height: 120,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            PhysicalModel(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(8),
-              clipBehavior: Clip.antiAlias,
-              child: Img(
-                  itemModel.cover,
-              ),
+            Img(
+                itemModel.cover,
+              radius: 8,
+              height: 120,
             ),
           ],
         ),

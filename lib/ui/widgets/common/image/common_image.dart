@@ -13,17 +13,23 @@ class Img extends StatelessWidget {
   String placeHolderImg;
   double width;
   double height;
+  double radius;
+  double borderWidth;
   GestureTapCallback clickCallBack;
 
   Img(this.url, {
     this.width,
     this.height,
+    this.radius,
+    this.borderWidth,
     this.clickCallBack,
   });
 
   _placeHolder(String placeHolder) {
     if(placeHolderImg != null) {
       return Image(
+        width: width ?? Size.infinite,
+        height: height ?? 100,
         fit: BoxFit.contain,
         image: AssetImage(
           Utils.getImgPath(placeHolder),
@@ -31,6 +37,8 @@ class Img extends StatelessWidget {
       );
     }else{
       return Container(
+        width: width ?? Size.infinite,
+        height: height ?? 100,
         color: ColorConfig.greyf2f2f2,
         child: Center(
           child: Image(
@@ -46,17 +54,29 @@ class Img extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-
-      child: GestureDetector(
-          onTap: clickCallBack,
-          child: CachedNetworkImage(
-            imageUrl: url ?? "",
-            placeholder: (context, url) => _placeHolder(placeHolderImg ),
-            errorWidget: (context, url, error) =>
-                _placeHolder(placeHolderImg ),
-            fit: BoxFit.cover,
-          )),
+    return GestureDetector(
+      onTap: clickCallBack,
+      child: Container(
+        width: width ?? Size.infinite,
+        height: height ?? 100,
+          decoration: BoxDecoration(
+            color: ColorConfig.white,
+            borderRadius: BorderRadius.all(Radius.circular(radius ??0)),
+            //设置四周边框
+            border: new Border.all(width: borderWidth ?? 0, color: Colors.white),
+          ),
+          child: PhysicalModel(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(radius ??0),
+            clipBehavior: Clip.antiAlias,
+            child: CachedNetworkImage(
+              imageUrl: url ?? "",
+              placeholder: (context, url) => _placeHolder(placeHolderImg),
+              errorWidget: (context, url, error) =>
+                  _placeHolder(placeHolderImg ),
+              fit: BoxFit.cover,
+            ),
+          ),),
     );
   }
 }

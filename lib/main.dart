@@ -14,7 +14,7 @@ void main() {
   };
 
   runZoned(() {
-   debugPaintLayerBordersEnabled = true;
+   debugPaintLayerBordersEnabled = false;
     runApp(App());
   }, zoneSpecification: ZoneSpecification(
     print: (Zone self, ZoneDelegate parent, Zone zone, String line) {

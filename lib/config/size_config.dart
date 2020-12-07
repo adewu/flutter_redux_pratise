@@ -4,6 +4,7 @@ class SizeConfig{
   static const double title17 = 17.0;
   static const double subTitle15 = 15.0;
   static const double content13 = 13.0;
+  static const double content15 = 15.0;
   static final double s1 = ScreenUtil().setWidth(1);
   static const double s2 = 2.0;
   static const double s3 = 3.0;
