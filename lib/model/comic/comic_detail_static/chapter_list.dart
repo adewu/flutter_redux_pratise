@@ -16,6 +16,7 @@ class Chapter_list {
   bool has_locked_image;
   // List<List<ImHightArr>> imHightArr;
   int countImHightArr;
+  String cover;
 
 	Chapter_list.fromJsonMap(Map<String, dynamic> map): 
 		name = map["name"],
