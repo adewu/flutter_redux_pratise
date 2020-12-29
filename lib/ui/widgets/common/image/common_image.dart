@@ -37,8 +37,8 @@ class Img extends StatelessWidget {
       );
     }else{
       return Container(
-        width: width ?? Size.infinite,
-        height: height ?? 100,
+        width: width ??  double.infinity,
+        height: height ?? 360,
         color: ColorConfig.greyf2f2f2,
         child: Center(
           child: Image(
@@ -57,7 +57,7 @@ class Img extends StatelessWidget {
     return GestureDetector(
       onTap: clickCallBack,
       child: Container(
-        width: width ?? Size.infinite,
+        width: width ??  360,
         height: height ?? 100,
           decoration: BoxDecoration(
             color: ColorConfig.white,
