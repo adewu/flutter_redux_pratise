@@ -8,8 +8,8 @@ class Comic {
   String short_description;
   int accredit;
   String cover;
-  String is_vip;
-  String type;
+	String is_vip;
+	String type;
   String ori;
   List<String> theme_ids;
   String series_status;

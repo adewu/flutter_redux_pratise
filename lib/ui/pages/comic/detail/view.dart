@@ -283,11 +283,6 @@ Widget buildView(
               ],
             ),
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            child: CommonBar(),
-          ),
           Positioned.fill(
             child: ListView(
               children: _showDetail(),
@@ -298,6 +293,11 @@ Widget buildView(
             right: 0,
             bottom: 0,
             child: DetailBottomBtns(),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            child: CommonBar(),
           ),
           //listview
         ],

@@ -5,7 +5,7 @@ class Chapter_list {
   String name;
   String image_total;
   String chapter_id;
-  String type;
+  int type;
   String price;
   String size;
   int pass_time;
@@ -22,7 +22,7 @@ class Chapter_list {
 		name = map["name"],
 		image_total = map["image_total"],
 		chapter_id = map["chapter_id"],
-		type = map["type"],
+		// type = map["type"],
 		price = map["price"],
 		size = map["size"],
 		pass_time = map["pass_time"],

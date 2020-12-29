@@ -94,7 +94,7 @@ class _AppState extends State<App> {
   _judgeRoute(){
     Constant.routes = routes;
     if(Constant.sIsNeedMockData){
-      return routes.buildPage(PageRouteName.HOME, null);
+      return routes.buildPage(PageRouteName.MAIN, null);
     }else{
       return Container();
     }

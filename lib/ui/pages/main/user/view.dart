@@ -39,7 +39,7 @@ Widget buildView(
           ),
         );
       },
-      itemCount: 12,
+      itemCount:9,
     );
     return gridView;
   }
