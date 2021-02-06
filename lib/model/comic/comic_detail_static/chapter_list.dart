@@ -25,7 +25,7 @@ class Chapter_list {
 		// type = map["type"],
 		price = map["price"],
 		size = map["size"],
-		pass_time = map["pass_time"],
+		// pass_time = map["pass_time"],
 		release_time = map["release_time"],
 		zip_high_webp = map["zip_high_webp"],
 		crop_zip_size = map["crop_zip_size"],
